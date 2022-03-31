@@ -24,7 +24,7 @@ If you find this code useful, please cite our poster or our paper:
 
 or
 
-de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Submitted to ApJ. 
+de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. 
 
 ## Figures from the paper in 3D Animations
 
