@@ -18,11 +18,7 @@ This directory contains Machine Learning Algorithms (Bayesian Gaussian Process,
   
 ## Citation
 
-If you find this code useful, please cite our poster or our paper:
-
-[de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. 2020, American Astronomical Society Meeting Abstracts, 170.12](https://113qx216in8z1kdeyi404hgf-wpengine.netdna-ssl.com/wp-content/uploads/2020/01/aas235_abstracts.pdf#abs170.12)
-
-or
+If you use any part of this code, please cite our paper:
 
 de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. 
 
