@@ -53,3 +53,7 @@ For the Bayesian Gaussian Process analysis, you will need to run these scripts o
 4. Now on your personal computer, adjust the paths at the top of `BGP_plot_predictions.R` to match your input and output directories.
 5. Run `BGP_plot_predictions.R` to plot your BGP results.
 
+
+If you use any part of this code, please cite our paper:
+de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal.
+
