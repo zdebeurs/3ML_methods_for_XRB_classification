@@ -38,7 +38,8 @@ First, ensure that you have installed required packages in R:
 
 ## Subsampling
 
-1. To subsample the MAXI data used in de Beurs et al. 2022, run *Sampling_method_10_subsets.R*
+1. To subsample the MAXI data used in de Beurs et al. 2022, run `Sampling_method_10_subsets.R`
+2. 
 **< UNDER CONSTRUCTION >**
 
 ** NEW CONTENT WILL BE ADDED SOON **
