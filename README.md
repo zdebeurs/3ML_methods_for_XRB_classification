@@ -40,19 +40,19 @@ First, ensure that you have installed required packages in R:
 ## Running the scripts
 
 1. To subsample the MAXI data used in de Beurs et al. 2022, run `Sampling_method_10_subsets.R` in R/Rstudio
-2. Next, adjust the paths at the top of `KNN_cross_val_compute_predictions.R` to match the local direcory you want the results to be written to.
-3. Run `KNN_cross_val_compute_predictions.R` to perform the KNN analysis
-4. Run `KNN_plot_predictions.R` to plot the results of your KNN analysis
-5. Adjust the paths at the top of `SVM_cross_val_compute_predictions.R` to match the local direcory you want the results to be written to.
-6. Run `SVM_cross_val_compute_predictions.R` to perform the SVM analysis
-7. Run `SVM _plot_predictions.R`  to plot the results of your KNN analysis
+2. Next, adjust the paths at the top of `KNN_methods/KNN_cross_val_compute_predictions.R` to match the local direcory you want the results to be written to.
+3. Run `KNN_methods/KNN_cross_val_compute_predictions.R` to perform the KNN analysis
+4. Run `KNN_methods/KNN_plot_predictions.R` to plot the results of your KNN analysis
+5. Adjust the paths at the top of `SVM_methods/SVM_cross_val_compute_predictions.R` to match the local direcory you want the results to be written to.
+6. Run `SVM_methods/SVM_cross_val_compute_predictions.R` to perform the SVM analysis
+7. Run `SVM_methods/SVM _plot_predictions.R`  to plot the results of your KNN analysis
 
 For the Bayesian Gaussian Process analysis, you will need to run these scripts on a supercomputing cluster. If you do not have access to a supercomputer, we suggest you decrease the sampling rate in `Sampling_method_10_subsets.R` from 20% to 10% to decrease computational time.
 1. Copy the folder `Training_and_Testing_saku_Dec3` to the supercomputer
-2. Run `Feb10_parallel_0.4_cutoff_bursters_laplacedot_kernel.R` on your supercomputer cluster. This can usually be done using a scheduler such as slurm. Please refer to resources of your specific cluster for more details on this.
+2. Run `BGP_methods/Feb10_parallel_0.4_cutoff_bursters_laplacedot_kernel.R` on your supercomputer cluster. This can usually be done using a scheduler such as slurm. Please refer to resources of your specific cluster for more details on this.
 3. Copy the results folder `BGP_results` to your personal computer.
 4. Now on your personal computer, adjust the paths at the top of `BGP_plot_predictions.R` to match your input and output directories.
-5. Run `BGP_plot_predictions.R` to plot your BGP results.
+5. Run `BGP_methods/BGP_plot_predictions.R` to plot your BGP results.
 
 
 If you use any part of this code, please cite our paper:
