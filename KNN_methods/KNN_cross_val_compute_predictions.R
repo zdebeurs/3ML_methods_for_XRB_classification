@@ -13,7 +13,7 @@ setwd("~/Documents/Github/3ML_methods_for_XRB_classification/3ML_methods_for_XRB
 
 # Set directory for the training files. 
 # Choose the subsample number (D1-D10). Here we choose subsample D1, but this can be changed to D2, D3, etc.
-subsample_num = 'D1'
+subsample_num = 'D2'
 directory = paste("10_sampled20Perc_Datasets/",subsample_num,"_Sampled_20percent_Training_and_Testing/", sep="")
 file_list_z = list.files(directory)
 systems = strsplit(file_list_z, ".asc")
