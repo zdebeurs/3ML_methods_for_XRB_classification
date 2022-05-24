@@ -45,7 +45,8 @@ First, ensure that you have installed required packages in R:
 4. Run `KNN_methods/KNN_plot_predictions.R` to plot the results of your KNN analysis
 5. Adjust the paths at the top of `SVM_methods/SVM_cross_val_compute_predictions.R` to match the local direcory you want the results to be written to.
 6. Run `SVM_methods/SVM_cross_val_compute_predictions.R` to perform the SVM analysis
-7. Run `SVM_methods/SVM _plot_predictions.R`  to plot the results of your KNN analysis
+7. Run  `SVM_methods/SVM_Median_SD_calculation.R` to aggregate your results and compute the median and sd across the ten subsampled datasets
+8. Run `SVM_methods/SVM _plot_predictions_10_runs.R`  to plot the results of your KNN analysis
 
 For the Bayesian Gaussian Process analysis, you will need to run these scripts on a supercomputing cluster. If you do not have access to a supercomputer, we suggest you decrease the sampling rate in `Sampling_method_10_subsets.R` from 20% to 10% to decrease computational time.
 1. Copy the folder `Training_and_Testing_saku_Dec3` to the supercomputer and run `BGP_methods/BGP_folder_maker_by_class.R` to sort the predictions into the appropriate folder (BGP/NS/Pulsar) for plotting.
