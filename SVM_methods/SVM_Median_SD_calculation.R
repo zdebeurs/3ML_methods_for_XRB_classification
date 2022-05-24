@@ -57,6 +57,8 @@ pred.data <- data.frame(
 # Order the observations based on ref_order.csv
 ordered_pred.data = pred.data[order(pred.data$ref_order),]
 
+source_type_list = c(rep("BH", 12),rep("NS", 20), rep("Pulsar", 12))
+
 # Now let us FINALLY compute the median and sd across all the predictions
 fulldata <- {}
 for (index in 1:44){
@@ -68,6 +70,7 @@ for (index in 1:44){
   sd_ns_prob = sd(ordered_pred.data[ordered_pred.data$ref_order==index,'non_pulsar_prob'])
   med_ps_prob = median(ordered_pred.data[ordered_pred.data$ref_order==index,'pulsar_prob'])
   sd_ps_prob = sd(ordered_pred.data[ordered_pred.data$ref_order==index,'pulsar_prob'])
+  source_type = source_type_list[index]
   
   dummy <- data.frame(
     system = ordered_pred.data[ordered_pred.data$ref_order==index,'system'][1],
@@ -82,6 +85,7 @@ for (index in 1:44){
     
     pulsar_prob = med_ps_prob,
     p_se = sd_ps_prob,
+    source_type = source_type,
     stringsAsFactors = FALSE
   )
   dummy
@@ -91,7 +95,7 @@ for (index in 1:44){
 fulldata
 
 # Assign names to each of the columns
-names(fulldata) <- c("systems","sysname","ref_order","blackhole_prob","bh_se","non_pulsar_prob","np_se","pulsar_prob","p_se")
+names(fulldata) <- c("systems","sysname","ref_order","blackhole_prob","bh_se","non_pulsar_prob","np_se","pulsar_prob","p_se", "source_type")
 fulldata
 
 # choose a filename for writing these median and sd results to a single csv
