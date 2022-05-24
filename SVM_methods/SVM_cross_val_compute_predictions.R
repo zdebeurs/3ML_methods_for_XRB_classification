@@ -43,10 +43,10 @@ registerDoFuture()
 plan(multiprocess)
 
 # Run through subsampled datasets D1-D10 where x=1 corresponds to D1
-x <- 1:2#10
+x <- 1:10
 
 # Run through subsamples D1-D10 in parallel
-y <- foreach(num_rum = x) %dopar% {
+y <- foreach(num_rum = x, options(future.rng.onMisuse="ignore")) %dopar% {
   # Read in data
   directory_full = paste(directory,num_rum,'_Sampled_20percent_Training_and_Testing/', sep="") #'Sampled_20percent_Training_and_Testing/'
   file_list_z <- list.files(directory_full)#"Sampled_20percent_Training_and_Testing/")
@@ -54,7 +54,6 @@ y <- foreach(num_rum = x) %dopar% {
   systems = unlist(systems)
   systems
   systems_shuffled = sample(systems)
-  
   # Check whether we want to try various C, Y params.
   if (lhs_params_run=="TRUE"){
     c_exp = C_list[num_rum]

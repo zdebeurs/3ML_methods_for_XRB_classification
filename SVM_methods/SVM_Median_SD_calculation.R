@@ -1,19 +1,23 @@
-# divide the sources into the correct NS, BH, Pulsar folders
-setwd("~/Documents/Summer19/SAO_Research/SVM_methods")
-directory = "Jul1_resampled_10_runs/"
+# Zoe de Beurs (working with Saku Vrtilek, Nazma Islam, and Giri Gopalan). 
+# If you use any part of this code, please cite our paper: 
+# de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. 
+# https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
+
+# This script computes the median and SD across the predictions of the 10 subsampled datasets.
+
+# Set the working directory (Adjust this path based on where you download your files )
+setwd("~/Documents/Github/3ML_methods_for_XRB_classification/3ML_methods_for_XRB_classification")
+directory = "SVM_methods/Predictions/"
 pred_folders = list.files(directory)
 
-# Compute SD across ten examples
+# Aggregate the predictions across ten subsample datasets into one list 'prediction_list'
 categories = c("BH/", "NS/", "Pulsar/")
 prediction_list <- {}
-#pred_folder = pred_folders[1]
+# run through each of the subsample predictions folders D1-D10
 for (pred_folder in pred_folders){
-  # remove this line later
-  #pred_folder = pred_folders[1]
   pred_folder
+  # run through each of the compact object types (BH, NS, Pulsar)
   for (compact_obj_folder in categories){
-    # remove this line later
-    #compact_obj_folder = "BH/"
     print(pred_folder)
     prediction_folder = paste(directory,pred_folder, sep="")
     category = compact_obj_folder
@@ -23,44 +27,39 @@ for (pred_folder in pred_folders){
       dummy <- read.table(paste(prediction_folder,"/",category, file_list[i], sep=""), skip = 1)
       fulldata <- rbind(fulldata,dummy)
     }
-    names(fulldata) <- c("systems","blackhole_prob","bh_se","non_pulsar_prob","np_se","pulsar_prob","p_se")
-    #names(fulldata) <- c("systems","blackhole_prob","bh_se","non_pulsar_prob","np_se",
-    #                     "pulsar_prob","p_se","burster_prob", "burster_se")
+    names(fulldata) <- c("systems","blackhole_prob","non_pulsar_prob","pulsar_prob")
     predictions = fulldata
     predictions
+    # append predictions to prediction_list
     prediction_list <- rbind(prediction_list,predictions)
   }
 }
-#write.csv(prediction_list, "5_runs_BGP_Jul1.csv")
 
-## format the data for tables in latex
-ref_order_dat = read.csv(file = '../ref_order.csv')
+## Read in reference file that provides the XRB sources in the correct RA-dec order
+# This order will allow you to format the data for tables in latex 
+ref_order_dat = read.csv(file = 'ref_order.csv')
 
-# Create the data frame
+# Create data frame to store the predictions in so that they can be sorted in RA-dec order
 pred.data <- data.frame(
-  #emp_name = c("MJD","2-3 keV","2-3 keV error","3-5 keV","3-5 keV error", "5-12 keV", "5-12 keV error"),
+  # reference order
   ref_order = rep(ref_order_dat[,1],10),
+  # XRB system names from ref_order.csv
   sysname= rep(ref_order_dat[,2],10),
   
+  # XRB system names from predictions
   system = prediction_list[,1],
-  
   blackhole_prob = prediction_list[,2],
-  bh_se = prediction_list[,3],
-  
-  non_pulsar_prob = prediction_list[,4],
-  np_se =  prediction_list[,5],
-  
-  pulsar_prob = prediction_list[,6],
+  non_pulsar_prob = prediction_list[,3],
+  pulsar_prob = prediction_list[,4],
   stringsAsFactors = FALSE
 )
 
+# Order the observations based on ref_order.csv
 ordered_pred.data = pred.data[order(pred.data$ref_order),]
 
+# Now let us FINALLY compute the median and sd across all the predictions
 fulldata <- {}
 for (index in 1:44){
-  # REMOVE THIS LINE
-  #index=2
-  
   print(ordered_pred.data[ordered_pred.data$ref_order==index,])
   
   med_bh_prob = median(ordered_pred.data[ordered_pred.data$ref_order==index,'blackhole_prob'])
@@ -90,8 +89,13 @@ for (index in 1:44){
   fulldata <- rbind(fulldata,dummy)
 }
 fulldata
+
+# Assign names to each of the columns
 names(fulldata) <- c("systems","sysname","ref_order","blackhole_prob","bh_se","non_pulsar_prob","np_se","pulsar_prob","p_se")
 fulldata
 
+# choose a filename for writing these median and sd results to a single csv
+todays_date = Sys.Date()
+
 # write median_sd results to a file 
-write.csv(fulldata, "10_runs_med_sd_SVM_Jul1.csv")
+write.csv(fulldata, paste("SVM_methods/10_runs_med_sd_SVM_",todays_date,".csv", sep =""))

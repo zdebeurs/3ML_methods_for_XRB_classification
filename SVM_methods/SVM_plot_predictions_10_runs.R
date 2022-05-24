@@ -3,8 +3,8 @@
 #SVM algorithm, plots the results
 
 library(ggplot2)
-library(stringr)
-library(RColorBrewer)
+#library(stringr)
+#library(RColorBrewer)
 
 setwd("~/Documents/Summer19/SAO_Research/SVM_methods")
 # Takes all predictions from k-fold cross_validation and plots them
