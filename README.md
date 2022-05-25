@@ -8,7 +8,7 @@
 
 Zoe de Beurs: [@zdebeurs](https://github.com/zdebeurs)
 
-We customized code from the LIBSVM library (Chang & Lin 2011), the class package (Venables & Ripley 2002), and the Kernlab library (Karatzoglou et al. 2004).
+We customized code from the LIBSVM library (Chang & Lin 2011), the class package (Venables & Ripley 2002), the caret package (Kuhn 2008), and the Kernlab library (Karatzoglou et al. 2004).
 
 ## Background
 
@@ -20,7 +20,7 @@ This directory contains Machine Learning Algorithms (Bayesian Gaussian Process,
 
 If you use any part of this code, please cite our paper:
 
-de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
+de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2022). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
 
 ## Figures from the paper in 3D Animations
 
@@ -52,13 +52,13 @@ First, ensure that you have installed required packages in R:
 8. Run `SVM_methods/SVM _plot_predictions_10_runs.R`  to plot the results of your KNN analysis
 
 For the Bayesian Gaussian Process analysis, you will need to run these scripts on a supercomputing cluster. If you do not have access to a supercomputer, we suggest you decrease the sampling rate in `Sampling_method_10_subsets.R` from 20% to 10% to decrease computational time.
-1. Copy the folder `Training_and_Testing_saku_Dec3` to the supercomputer and run `BGP_methods/BGP_folder_maker_by_class.R` to sort the predictions into the appropriate folder (BGP/NS/Pulsar) for plotting.
-2. Run `BGP_methods/BGP_cross_val_compute_predictions.R` on your supercomputer cluster. This can usually be done using a scheduler such as slurm. Please refer to resources of your specific cluster for more details on this.
-3. Copy the results folder `BGP_results` to your personal computer.
+1. Copy the folder `Training_and_Testing` to the supercomputer and adjust the paths in `BGP_methods/BGP_cross_val_compute_predictions.R` to match the paths on the supercomputer cluster to the `Training_and_Testing` folder.
+2. Run `BGP_methods/BGP_cross_val_compute_predictions.R` on your supercomputer cluster. This can usually be done using a scheduler such as slurm. Please refer to resources of your specific cluster for more details on this. For reference, I included the slurm script I used (`BGP_slurm_2022`) but please refer to resources of your specific cluster for more details on how to modify this for your needs.
+3. Copy the results folder `BGP_results` to your personal computer and and run `BGP_methods/BGP_folder_maker_by_class.R` to sort the predictions into the appropriate folder (BGP/NS/Pulsar) for plotting.
 4. Now on your personal computer, adjust the paths at the top of `BGP_plot_predictions.R` to match your input and output directories.
 5. Run `BGP_methods/BGP_plot_predictions.R` to plot your BGP results.
 
 
 If you use any part of this code, please cite our paper:
-de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
+de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2022). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
 
