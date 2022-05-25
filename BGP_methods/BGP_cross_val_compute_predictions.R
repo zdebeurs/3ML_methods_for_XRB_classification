@@ -14,6 +14,9 @@ library(doParallel)
 supercomputer_path_to_files = ("~/Documents/Github/3ML_methods_for_XRB_classification/3ML_methods_for_XRB_classification/")#"/home/gridsan/zdebeurs/SAO_Research"
 setwd(supercomputer_path_to_files)
 
+# Are you running the script on a supercomputer? If no, set supercomputer_run = "FALSE"
+supercomputer_run = "FALSE"#"TRUE"#
+
 # Define kernel for Bayesian Gaussian Process. We choose laplacedot here but we also tried 'rbfdot' or 'anovadot' in the paper which you are welcome to try.
 kernel_rbf = "laplacedot"
 
@@ -102,9 +105,14 @@ y <- foreach(cross_iter = x) %dopar% {
     )
     
     
-    # train model
-    model <- gausspr(y=train.data$Class_num, x=t(train.data[1:3]), kernel=kernel_rbf,
-                     kpar="automatic", var=1, variance.model = FALSE)
+    if (supercomputer_run == "TRUE"){
+      # train model
+      model <- gausspr(y=train.data$Class, x=t(train.data[1:3]), kernel=kernel_rbf,
+                       kpar="automatic", var=1, variance.model = FALSE)
+    } else {
+      model <- gausspr(Class_num~., data=train.data, kernel=kernel_rbf,
+                       kpar="automatic", var=1, variance.model = FALSE)
+    }
     
     # load test.data
     # Predict each of the 5 test systems independently and write them to files
@@ -160,6 +168,7 @@ y <- foreach(cross_iter = x) %dopar% {
       # Save individual output file for each source
       predictions <- data.frame(test_systems[i],blackhole_prob,non_pulsar_prob,pulsar_prob)
       
+      # Assign output filename based on output folder specified at the begining of script
       output_filename_asc = paste(output_folder, test_systems[i],'.asc', sep="")
       if (file.exists(output_filename_asc)){
         output_filename_asc = paste(folder, test_systems[i],runif(1),'.asc', sep="")
