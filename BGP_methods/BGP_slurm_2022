@@ -1,0 +1,22 @@
+#!/bin/bash
+#BATCH -J run_D1_rbf_BGP_Dec3            # job name
+#SBATCH -o run_D1_rbf_BGP_Dec3.o%j        # output and error file name (%j expands to jobID)
+#SBATCH -N 11                # number of nodes requested
+#SBATCH -n 44               # total number of mpi tasks requested
+#SBATCH -p normal      # queue (partition) -- normal, development, etc.
+#SBATCH -t 47:59:00         # run time (hh:mm:ss) - 1.5 hours
+
+#SBATCH --mail-user=zdebeurs@mit.edu
+#SBATCH --mail-type=begin   # email me when the job starts
+#SBATCH --mail-type=end     # email me when the job finishes
+#SBATCH -A binaryorbits  #designate allocation
+
+# run the executable named a.out
+module load Rstats/3.6.3
+#module load RstatsPackages/3.6.3
+
+echo "BGP_cross_val_compute_predictions.R  on 11 CPU cores"
+
+Rscript BGP_cross_val_compute_predictions.R
+ 
+

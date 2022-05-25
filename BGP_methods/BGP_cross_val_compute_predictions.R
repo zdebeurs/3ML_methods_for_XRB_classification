@@ -35,7 +35,7 @@ systems_shuffled = systems_shuffled #[1:3]
 dir.create(paste(supercomputer_path_to_files,"BGP_methods/Predictions", sep=""), showWarnings = FALSE)
 # choose a filename for individual runs
 todays_date = Sys.Date()
-output_folder = paste(supercomputer_path_to_files,"BGP_methods/Predictions/",subsample_num, "_",kernel_rbf,"_",todays_date,"/", sep="") 
+output_folder = paste(supercomputer_path_to_files,"BGP_methods/Predictions/",subsample_num, "_Predictions/", sep="") 
 # create folders within the Predictions folder for each of runs (if they do not already exist)
 dir.create(output_folder, showWarnings = FALSE)
 
