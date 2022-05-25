@@ -6,57 +6,49 @@
 # This script performs the cross-validation described in Section 4.2 for the Bayesian Gaussian Process Algorithm (Section 3.3)
 # This script uses the BGP algorithm implemented in the R kernlab library (Karatzoglou et al. 2004).
 
-# Be sure to install "kernlab" if not already installed with "install.packages("kernlab")"
+# Be sure to install "kernlab" and "doParallel" if not already installed with "install.packages("kernlab")" and "install.packages("doParallel")"
 library(kernlab)
+library(doParallel)
 
 # THIS WILL NEED TO BE CHANGED based on the path on your supercomputer where you put the file
-supercomputer_path_to_files = "/home/gridsan/zdebeurs/SAO_Research"
+supercomputer_path_to_files = ("~/Documents/Github/3ML_methods_for_XRB_classification/3ML_methods_for_XRB_classification/")#"/home/gridsan/zdebeurs/SAO_Research"
 setwd(supercomputer_path_to_files)
 
-# Define kernel options. We choose laplacedot here but you could also try 'rbfdot' or 'anovadot'
+# Define kernel for Bayesian Gaussian Process. We choose laplacedot here but we also tried 'rbfdot' or 'anovadot' in the paper which you are welcome to try.
 kernel_rbf = "laplacedot"
 
-#For Training
-directory = paste(supercomputer_path_to_files,'Dec13_datasets_4U1916/Dec13_',cutoff_type,'cutoff_Sampled_20percent_Training_and_Testing/', sep="")#'/home/gridsan/zdebeurs/SAO_Research/Dec13_datasets_4U1916/Dec13_',cutoff_type,'cutoff_Sampled_20percent_Training_and_Testing/', sep="") #'Sampled_20percent_Training_and_Testing/'
+# Set directory for the training files. 
+# Choose the subsample number (D1-D10). Here we choose subsample D1, but this can be changed to D2, D3, etc.
+subsample_num = 'D1'
+directory = paste(supercomputer_path_to_files,'10_sampled20Perc_Datasets/',subsample_num, "_Sampled_20percent_Training_and_Testing/",sep="")
 file_list_z <- list.files(directory)
 systems = strsplit(file_list_z, ".asc")
 systems = unlist(systems)
 systems_shuffled = sample(systems)
-systems_shuffled = systems_shuffled[1:3]
+systems_shuffled = systems_shuffled #[1:3]
 
 # Set an output folder for predictions
-output_folder = paste("Dec13_preds_4U1916/",cutoff_type,"cutoff_",kernel_rbf,"_kernel_preds_test/", sep="") #"/home/gridsan/zdebeurs/SAO_Research/Dec13_preds_4U1916/",cutoff_type,"cutoff_",kernel_rbf,"_kernel_preds_test/", sep="")
+# First create folder "Predictions" on supercomputer (if it doesn't already exist)
+dir.create(paste(supercomputer_path_to_files,"BGP_methods/Predictions", sep=""), showWarnings = FALSE)
+# choose a filename for individual runs
+todays_date = Sys.Date()
+output_folder = paste(supercomputer_path_to_files,"BGP_methods/Predictions/",subsample_num, "_",kernel_rbf,"_",todays_date,"/", sep="") 
+# create folders within the Predictions folder for each of runs (if they do not already exist)
 dir.create(output_folder, showWarnings = FALSE)
 
-#idxs = (1:length(systems))
-#randomize
-#idxs = sample(idxs)
 
-# run k=5 fold cross-validation (with 4 different kernels) in parallel
-library(doParallel)
-cl <- makePSOCKcluster(2)
+# Initialize multiple cores. Here we choose 11 cores but this can be changed depending on your supercomputer's specifications.
+num_cores = 11
+cl <- makePSOCKcluster(num_cores)
 registerDoParallel(cl)
-
-#registerDoParallel(cores=2)
-#library(parallel)
-#library(foreach)
-
 
 # define a not-in list parameter
 `%notin%` <- Negate(`%in%`)
 
-# define number of cross-val folds (k=33)
-x <- seq(1,2)#length(systems))
+# define number of cross-val folds to equal the number of XRB systems (44)
+x <- seq(1,length(systems))
 
-# parallelize the crossval component
-#y <- foreach(cross_iter = x) %dopar% {print(cross_iter)}
-
-# parallelize the kernel component, not the cross_val
-#x_kernel <- seq(1,length(kernel_list))
-
-#y <- foreach(kern = x_kernel) %dopar% {
-#y <- foreach(cross_iter = x) %dopar% {
-#for (cross_iter in x) {
+# Perform cross-validation
 y <- foreach(cross_iter = x) %dopar% {
     library(kernlab)
     #for (cross_iter in seq(1, length(systems), 1)){
@@ -109,12 +101,8 @@ y <- foreach(cross_iter = x) %dopar% {
       stringsAsFactors = FALSE
     )
     
-    # train model
-    print(kernel_rbf)
-    model <- gausspr(Class_num~., data=train.data, kernel=kernel_rbf,
-                     kpar="automatic", var=1, variance.model = FALSE)
     
-    # other version for supercloud
+    # train model
     model <- gausspr(y=train.data$Class_num, x=t(train.data[1:3]), kernel=kernel_rbf,
                      kpar="automatic", var=1, variance.model = FALSE)
     
@@ -157,29 +145,20 @@ y <- foreach(cross_iter = x) %dopar% {
         stringsAsFactors = FALSE
       )
       
-      # predict
+      # predict classification of test data
       preds = predict(model, test.data[,-4], type="probabilities")
       probabilities = preds
       
       print(colMeans(probabilities, na.rm = FALSE, dims = 1))
       
-      # New Error Prediction by just taking sd(prob(bh))
+      # Compute mean probability over all data point belonging to XRB source
       total_sum = sum(probabilities[,1])+sum(probabilities[,2])+sum(probabilities[,3])
       blackhole_prob = mean(probabilities[,1])
-      bh_se = sd(probabilities[,1])
-      blackhole_prob
-      bh_se
       non_pulsar_prob = mean(probabilities[,2])
-      np_se = sd(probabilities[,2])
-      non_pulsar_prob
-      np_se
       pulsar_prob = mean(probabilities[,3])
-      p_se = sd(probabilities[,3])
-      pulsar_prob
-      p_se
       
       # Save individual output file for each source
-      predictions <- data.frame(test_systems[i],blackhole_prob,bh_se,non_pulsar_prob,np_se,pulsar_prob,p_se)
+      predictions <- data.frame(test_systems[i],blackhole_prob,non_pulsar_prob,pulsar_prob)
       
       output_filename_asc = paste(output_folder, test_systems[i],'.asc', sep="")
       if (file.exists(output_filename_asc)){
