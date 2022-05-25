@@ -14,8 +14,7 @@ library(doFuture)
 # Set the working directory (Adjust this path based on where you download your files )
 setwd("~/Documents/Github/3ML_methods_for_XRB_classification/3ML_methods_for_XRB_classification")
 
-# Set directory for the training files location
-# Choose the subsample number (D1-D10). Here we choose subsample D1, but this can be changed to D2, D3, etc.
+# Set directory for the training files location. We will cycle through all subsampled datasets (D1-D10)
 directory = '10_sampled20Perc_Datasets/D'
 
 # define a not in function

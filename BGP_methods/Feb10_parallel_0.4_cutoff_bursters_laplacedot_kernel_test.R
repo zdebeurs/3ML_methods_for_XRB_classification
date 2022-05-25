@@ -1,16 +1,23 @@
-# BGP modified from kernlab package (Zoe de Beurs)
+# Zoe de Beurs (working with Saku Vrtilek, Nazma Islam, and Giri Gopalan). 
+# If you use any part of this code, please cite our paper: 
+# de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. 
+# https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
+
+# This script performs the cross-validation described in Section 4.2 for the Bayesian Gaussian Process Algorithm (Section 3.3)
+# This script uses the BGP algorithm implemented in the R kernlab library (Karatzoglou et al. 2004).
+
+# Be sure to install "kernlab" if not already installed with "install.packages("kernlab")"
 library(kernlab)
 
-setwd("/Documents/Summer19/SAO_Research/simple_BGP/mit_supercloud_feb10_2022")#"/home/gridsan/zdebeurs/SAO_Research")
+# THIS WILL NEED TO BE CHANGED based on the path on your supercomputer where you put the file
+supercomputer_path_to_files = "/home/gridsan/zdebeurs/SAO_Research"
+setwd(supercomputer_path_to_files)
 
-#Define kernel options
+# Define kernel options. We choose laplacedot here but you could also try 'rbfdot' or 'anovadot'
 kernel_rbf = "laplacedot"
 
-# Choose whether to apply the uniform cutoff or a specific cutoff
-cutoff_type = '0.4' #'by_eye'#'1sigma'#'2sigma'#'0.4'# '1sigma_median'# 'by_eye_4U1916-053v2' # '2sigma'#'1sigma'# or '3sigma' or 'by_eye'
-
 #For Training
-directory = paste('Dec13_datasets_4U1916/Dec13_',cutoff_type,'cutoff_Sampled_20percent_Training_and_Testing/', sep="")#'/home/gridsan/zdebeurs/SAO_Research/Dec13_datasets_4U1916/Dec13_',cutoff_type,'cutoff_Sampled_20percent_Training_and_Testing/', sep="") #'Sampled_20percent_Training_and_Testing/'
+directory = paste(supercomputer_path_to_files,'Dec13_datasets_4U1916/Dec13_',cutoff_type,'cutoff_Sampled_20percent_Training_and_Testing/', sep="")#'/home/gridsan/zdebeurs/SAO_Research/Dec13_datasets_4U1916/Dec13_',cutoff_type,'cutoff_Sampled_20percent_Training_and_Testing/', sep="") #'Sampled_20percent_Training_and_Testing/'
 file_list_z <- list.files(directory)
 systems = strsplit(file_list_z, ".asc")
 systems = unlist(systems)
