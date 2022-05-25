@@ -33,9 +33,11 @@ To examine the 3D Color-Color-Intensity Diagrams, go to **[Figures](https://gith
 First, ensure that you have installed required packages in R:
 
 * **ggplot2** ([instructions](https://ggplot2.tidyverse.org/))
-* **caret** ([instructions](https://cran.r-project.org/web/packages/caret/index.html))
-* **e1071** ([instructions](https://cran.r-project.org/web/packages/e1071/index.html/))
+* **caret** ([instructions](https://cran.r-project.org/web/packages/caret/index.html)) 
+* **e1071** ([instructions](https://cran.r-project.org/web/packages/e1071/index.html/)) 
+* **lhs** ([instructions](https://cran.r-project.org/web/packages/lhs/index.html)
 * **doFuture** ([instructions](https://cran.r-project.org/web/packages/doFuture/index.html/))
+* **kernlab** ([instructions]([https://cran.r-project.org/web/packages/doFuture/index.html/](https://cran.r-project.org/web/packages/kernlab/index.html)))
 
 ## Running the scripts
 
