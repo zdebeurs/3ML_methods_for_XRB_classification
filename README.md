@@ -8,7 +8,7 @@
 
 Zoe de Beurs: [@zdebeurs](https://github.com/zdebeurs)
 
-We customized code from the LIBSVM library (Chang & Lin 2011), the class package (Venables & Ripley 2002), and the Kernlab library (Karatzoglou et al. 2004).
+We customized code from the LIBSVM library (Chang & Lin 2011), the class package (Venables & Ripley 2002), the caret package (Kuhn 2008), and the Kernlab library (Karatzoglou et al. 2004).
 
 ## Background
 
@@ -20,7 +20,7 @@ This directory contains Machine Learning Algorithms (Bayesian Gaussian Process,
 
 If you use any part of this code, please cite our paper:
 
-de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
+de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2022). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
 
 ## Figures from the paper in 3D Animations
 
@@ -60,5 +60,5 @@ For the Bayesian Gaussian Process analysis, you will need to run these scripts o
 
 
 If you use any part of this code, please cite our paper:
-de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
+de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2022). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
 
