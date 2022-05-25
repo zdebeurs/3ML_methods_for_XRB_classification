@@ -1,16 +1,17 @@
-# Zoe de Beurs (working with Saku Vrtilek, Nazma Islam, and Giri Gopalan). Some of this code is adapted from https://github.com/ggopalan/XRay-Binary-Classification.
-# Please cite our paper when using any part of this code. [INCLUDE CITATION LINK]
-
+# Zoe de Beurs (working with Saku Vrtilek, Nazma Islam, and Giri Gopalan). 
+# If you use any part of this code, please cite our paper: 
+# de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2020). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. 
+# https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
 # Script aims to take a sample such that each source has between 100 to 300 pts per sample. This is further described in Section 2.2 of the paper. 
 
 # Be sure to install "ggplot2" if not already installed with "install.packages("ggplot2")"
 library(ggplot2)
 
 # Set the working directory (Adjust this path based on where you download your files )
-setwd("~/Documents/Github/3ML_methods_for_XRB_classification/")
+setwd("~/Documents/Github/3ML_methods_for_XRB_classification/3ML_methods_for_XRB_classification")
 
 # Name of folder which contains XRB sources 
-training_files = "./Training_and_Testing"
+training_files = "Training_and_Testing"
 
 # Name of output folder for 10 sampled datasets and create folder (if it does not already exist)
 output_folder = "10_sampled20Perc_Datasets"
