@@ -20,7 +20,8 @@ This directory contains Machine Learning Algorithms (Bayesian Gaussian Process,
 
 If you use any part of this code, please cite our paper:
 
-de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2022). A Comparative Study of Machine Learning Methods for X-ray Binary Classification. Accepted to the Astrophysical Journal. https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract
+de Beurs, Z. L., Islam, N., Gopalan, G., & Vrtilek, S.D. (2022). ["A Comparative Study of Machine Learning Methods for X-ray Binary Classification,"](https://ui.adsabs.harvard.edu/abs/2022arXiv220400346D/abstract) The Astrophysical Journal, 933, 116 (2022)
+
 
 ## Figures from the paper in 3D Animations
 
